@@ -35,7 +35,9 @@ int main(void)
         perror("kqueue");
         exit(1);
     }
-    EV_SET(&kev, fd, EVFILT_VNODE, EV_ADD, NOTE_WRITE, 0, NULL);
+    EV_SET(&kev, fd, EVFILT_VNODE,
+           EV_ADD | EV_ENABLE | EV_CLEAR,
+           NOTE_DELETE | NOTE_WRITE, 0, NULL);
     ret = kevent(kq, &kev, 1, NULL, 0, NULL);
     if (ret == -1)
     {
@@ -59,14 +61,8 @@ int main(void)
                 (kev.fflags & NOTE_WRITE) == NOTE_WRITE)
             {
                 printf("hoge.txt is written\n");
-                break;
             }
         }
     }
-
-    // /* 終了処理 */
-    // close(kq);
-    // close(fd);
-
     return 0;
 }
