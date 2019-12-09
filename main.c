@@ -22,7 +22,7 @@ int main(void)
     ret = 0;
     (void)memset(&tspec, 0, sizeof(tspec));
 
-    /* hoge.txtを監視するよう登録 */
+    /* test.mdを監視するよう登録 */
     fd = open("./test.md", O_RDONLY);
     if (fd == -1)
     {
@@ -45,7 +45,7 @@ int main(void)
         exit(1);
     }
 
-    /* hoge.txtを監視 */
+    /* test.mdを監視 */
     while (1)
     {
         ret = kevent(kq, NULL, 0, &kev, 1, NULL);
@@ -60,7 +60,7 @@ int main(void)
             if (kev.ident == fd &&
                 (kev.fflags & NOTE_WRITE) == NOTE_WRITE)
             {
-                printf("hoge.txt is written\n");
+                printf("test.md is written\n");
             }
         }
     }
