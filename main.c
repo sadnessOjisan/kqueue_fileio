@@ -48,6 +48,7 @@ int main(void)
     /* test.mdを監視 */
     while (1)
     {
+        /* イベントリストにあるイベントの要素数を取得 */
         ret = kevent(kq, NULL, 0, &kev, 1, NULL);
 
         if (ret == -1)
@@ -64,5 +65,8 @@ int main(void)
             }
         }
     }
+    
+    /* イベントリストにあるイベントの要素数が0のときはループが回り続ける */
+    
     return 0;
 }
